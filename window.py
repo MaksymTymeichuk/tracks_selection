@@ -19,10 +19,7 @@ class Window(Tk):
         self.song_list = Listbox(self,height=25,width=40)
         self.song_list.grid(row=3,column=0)
         self.entry1.grid(row=2,column=0,padx=50,pady=10)
-        self.scroll = Scrollbar(self)
-        self.scroll.grid(row = 0,column=1)
-        self.song_list.config(yscrollcommand=self.scroll.set)
-        self.scroll.config(command=self.song_list)
+        
     def search_track(self):
         """Пошук треків за назвою треку, або за автором
         або за жанром, в залежності від обраного режиму 
