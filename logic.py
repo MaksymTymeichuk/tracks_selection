@@ -33,6 +33,33 @@ class Search_engine():
         self.info_list.append(self.artist)
         print(self.info_list[1][0][0])
         return self.info_list
+    def select_by_genre(self,text):
+        self.genre_id = self.db.select("""
+        SELECT GenreId FROM genres WHERE Name = ?
+        
+        """,text)
+        self.names = self.db.select("""
+        SELECT Name FROM tracks WHERE GenreId = ?
+        
+        """,self.genre_id[0][0])
+        return self.names
+    def select_by_author(self,text):
+        self.author = self.db.select("""
+        SELECT ArtistId FROM artists WHERE Name = ?
+        
+        
+        """,text)
+        self.albums = self.db.select("""
+        SELECT AlbumId FROM Albums WHERE ArtistId = ?    
+        """,self.author[0][0])
+        self.tracks_list = []
+        for el in self.albums:
+            self.tracks_list.append(self.db.select("""
+            SELECT Name FROM tracks WHERE AlbumId = ?
+            
+            
+            """,el[0]))
+        return self.tracks_list
 """if __name__=="__main__":
    from sql_interface import DbChinook
    db = DbChinook()
